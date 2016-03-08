@@ -3,32 +3,60 @@
 #ifndef PEOPLE
 #define PEOPLE
 #include <iostream>
-
+#include <vector>
+#include <algorithm>
+#include <queue> 
+#include <map>
+#include <iterator>
 using namespace std;
 
 class People
 {
-	private:
-		string name;
-		int classYear;
-		string school;
-		string major;
-		string* classTaken;				// array of classes
-		People* listOfFriends;		
-		string* organzations;
-		string place;					// where do they live now
-		string email;
-
-	public:
-		string getName();
-		int getClassYear();
-		string getSchool();
-		string getMajor();
-		string* getClasses();
-		People* getFriends();
-		string* getOrganization();
-		string getPlace();
-		string getEmail();
+protected:
+    
+    static const int MAXCLASS = 50;
+    static const int MAXFRIENDS = 10000;
+    static const int MAXNUMBER = 10000;
+    static int numbers;
+    static vector<People *> allNodes;
+    string name;
+    int classYear;
+    string school;
+    string major;
+    string place;					// where do they live now
+    string email;
+    vector<string> classTaken;				// array of classes
+    vector<People *> listOfFriends;
+    vector<string> organizations;
+    People * backPointer;
+    
+public:
+    
+    People();
+    People(string s, int year, string sch, string ma, string pl, string em);
+    People(People &person);
+    ~People();
+    string getName();
+    void setName(string s);
+    int getClassYear();
+    string getSchool();
+    string getMajor();
+    string getPlace();
+    string getEmail();
+    vector<string> getClasses();
+    vector<People*> getFriends();
+    vector<string> getOrganization();
+    void addConnection (People * person1);
+    void removeConnection (People *person1);
+    People * recommend ();
+    map<People*, int> shortestPath();
+    int shortestPath(People * other);
+    void getIntroduced(People * other);
+    static int getDiameter();
+    static int getNumbers();
+    static vector<People*> getAllNodes();
+    static void updateRecommendation();
+    static bool isComplete(); 
 };
 
 #endif
