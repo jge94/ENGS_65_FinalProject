@@ -7,22 +7,27 @@
 //
 
 #include "People.h"
-
+#include "Professor.h"
+#include "Student.h"
 
 int main(int argc, const char * argv[]) {
       
     
-    People Larry("Yuxiang Liu", 16, "Dartmouth College", "Physics", "Hanover", "Yuxiang.Liu.GR@dartmouth.edu");
+    Student Larry("Yuxiang Liu", 16, "Dartmouth College", "Physics", "Hanover", "Yuxiang.Liu.GR@dartmouth.edu");
     
-    People Harry("Harry Qi", 17, "Dartmouth College", "Mathematics", "Hanover", "Harry.Qi.17@dartmouth.edu");
+    Student Harry("Harry Qi", 17, "Dartmouth College", "Mathematics", "Hanover", "Harry.Qi.17@dartmouth.edu");
     
-    People Jinnan("Jinnan Ge", 16, "Dartmouth College", "Engineering", "Hanover", "Jinnan.Ge.UG@dartmouth.edu");
+    Student Jinnan("Jinnan Ge", 16, "Dartmouth College", "Engineering", "Hanover", "Jinnan.Ge.UG@dartmouth.edu");
     
-    People Ethan("Ethan Su", 15, "Dartmouth College", "Engineering", "Hanover", "Chengwei.Su.TH@dartmouth.edu");
+    Student Ethan("Ethan Su", 15, "Dartmouth College", "Engineering", "Hanover", "Chengwei.Su.TH@dartmouth.edu");
     
-    People Tommy("Tommy Khoo", 18, "Dartmouth College", "Mathematics", "Hanover", "Tommy.Khoo.GR@dartmouth.edu");
+    Student Tommy("Tommy Khoo", 18, "Dartmouth College", "Mathematics", "Hanover", "Tommy.Khoo.GR@dartmouth.edu");
     
-    People Liyuan("Liyuan Mei", 16, "Dartmouth College", "Physics", "Hanover", "Liyuan.mei.GR@dartmouth.edu");
+    Student Liyuan("Liyuan Mei", 16, "Dartmouth College", "Physics", "Hanover", "Liyuan.mei.GR@dartmouth.edu");
+    
+    
+    Professor Santos("Eugene Santos", true, "Dartmouth College", "Engineering", "Hanover", "Eugene.Santos@dartmouth.edu");
+    
     
     Larry.addConnection(&Harry);
     Larry.addConnection(&Jinnan);
@@ -30,7 +35,18 @@ int main(int argc, const char * argv[]) {
     Ethan.addConnection(&Jinnan);
     Jinnan.addConnection(&Tommy);
     Tommy.addConnection(&Liyuan);
-     
+    
+    vector<People*> listofStudents;
+    listofStudents.push_back(&Larry);
+    listofStudents.push_back(&Jinnan);
+    
+    Santos.teachCourse(listofStudents);
+    Ethan.takeACourse(&Santos);
+
+    People::updateWeights();  // updates the weights, so that the number of common friends are updated;
+    
+    Larry.printInfoDetails(); // print each node details, between [] are the number of common friends;
+    Santos.printInfoDetails();
     
     cout << "1. The first recommedation for Larry is " << Larry.recommend()->getName() << endl;
     
@@ -53,24 +69,18 @@ int main(int argc, const char * argv[]) {
     
     cout << "7. There are totally " << People::getNumbers() << " nodes" << endl;
     
-    People::updateRecommendation(); 
+    People::updateRecommendation();
     
     cout << "8. After adding all the recommendation, the diameter of the graph is now "<< People::getDiameter() << endl;
-    cout << "9. The shortest path from Larry to Liyuan after update is " <<Larry.shortestPath(&Liyuan) << endl;
+    cout << "9. The shortest path from Larry to Liyuan after update is " << Larry.shortestPath(&Liyuan) << endl;
     
     People::updateRecommendation();
     cout << "10. After second update, the diameter of the graph is now "<< People::getDiameter() << endl;
     
+    People::updateWeights();
+    Larry.printInfoDetails();
+    Santos.printInfoDetails();
     
-    // try to test how many space a vector of pointers take, turns out that very small;
-    cout << sizeof(Larry.getFriends()) << endl;
-    cout << Larry.getFriends().size() << endl;
-    cout << sizeof(People *) << endl;
-    
-    
-    
-    
-    //bool x = contains(Larry.getFriends(), &Ethan);
     return 0;
     
 }

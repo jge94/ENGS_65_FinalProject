@@ -8,6 +8,8 @@
 #include <queue> 
 #include <map>
 #include <iterator>
+#include <tuple>
+
 using namespace std;
 
 class People
@@ -20,25 +22,24 @@ protected:
     static int numbers;
     static vector<People *> allNodes;
     string name;
-    int classYear;
     string school;
     string major;
     string place;					// where do they live now
     string email;
     vector<string> classTaken;				// array of classes
     vector<People *> listOfFriends;
+    vector<pair<People*, int>> listOfFriendswithWeights;
     vector<string> organizations;
     People * backPointer;
     
 public:
     
     People();
-    People(string s, int year, string sch, string ma, string pl, string em);
-    People(People &person);
+    People(string s, string sch, string ma, string pl, string em);
+    People(const People &person);
     ~People();
     string getName();
     void setName(string s);
-    int getClassYear();
     string getSchool();
     string getMajor();
     string getPlace();
@@ -52,11 +53,16 @@ public:
     map<People*, int> shortestPath();
     int shortestPath(People * other);
     void getIntroduced(People * other);
+    int getCommonFriendsNum(People * other);
     static int getDiameter();
     static int getNumbers();
     static vector<People*> getAllNodes();
     static void updateRecommendation();
-    static bool isComplete(); 
+    static bool isComplete();
+    static void updateWeights();
+    vector<pair<People*, int>> getFriendsWithWeights();
+    virtual void printInfo();
+    virtual void printInfoDetails();
 };
 
 #endif

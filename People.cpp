@@ -61,7 +61,6 @@ vector<People*> People::allNodes;
 
 People::People(){
     name = "";
-    classYear = 0;
     school = "";
     major = "";
     place = "";
@@ -69,14 +68,14 @@ People::People(){
     classTaken.reserve(MAXCLASS);
     listOfFriends.reserve(MAXFRIENDS);
     organizations.reserve(MAXCLASS);
+    listOfFriendswithWeights.reserve(MAXFRIENDS);
     backPointer = NULL;
     numbers ++;
     if (!contains (allNodes, this)) allNodes.push_back(this);
 } // default constructor;
 
-People::People(string s, int year, string sch, string ma, string pl, string em ){
+People::People(string s, string sch, string ma, string pl, string em ){
     name = s;
-    classYear = year;
     school = sch;
     major = ma;
     place = place;
@@ -84,6 +83,7 @@ People::People(string s, int year, string sch, string ma, string pl, string em )
     classTaken.reserve(MAXCLASS);
     listOfFriends.reserve(MAXFRIENDS);
     organizations.reserve(MAXCLASS);
+    listOfFriendswithWeights.reserve(MAXFRIENDS);
     backPointer = NULL;
     numbers ++;
     if (!contains(allNodes, this)) allNodes.push_back(this);
@@ -92,11 +92,11 @@ People::People(string s, int year, string sch, string ma, string pl, string em )
 
 
 
-People::People(People &person){
+People::People(const People &person){
     *this = person;
     numbers ++;
     if (!contains(allNodes, this)) allNodes.push_back(this);
-    cout << "copy constructor gets called" << endl;
+    // cout << "copy constructor for People gets called" << endl;
 } // copy constructor;
 
 People::~People(){
@@ -108,6 +108,7 @@ People::~People(){
     classTaken.clear();
     organizations.clear();
     backPointer = NULL;
+    
 } // destructor;
 
 string People::getName() 
@@ -118,11 +119,7 @@ string People::getName()
 void People::setName(string s){
     name = s; 
 };
-
-int People::getClassYear()
-{
-	return classYear;
-}		
+	
 
 
 string People::getSchool()
@@ -328,3 +325,107 @@ bool People::isComplete() {
         return false;
     }
 }
+
+
+void People::updateWeights() {
+    vector<People*> nodes = People::getAllNodes();
+    for (People * x : nodes) {
+        for(People *y:x->getFriends()) {
+            
+            int num = x->getCommonFriendsNum(y);
+            pair<People*, int> myPair = make_pair(y, num);
+            x->listOfFriendswithWeights.push_back(myPair);
+        }
+    }
+}
+
+
+int People::getCommonFriendsNum(People * other){
+    int num = 0;
+    for (People * x: this->getFriends()) {
+        if (contains(other->getFriends(), x)){
+            num++;
+        }
+    }
+    return num;
+}
+
+
+vector<pair<People*, int>> People::getFriendsWithWeights(){
+    return listOfFriendswithWeights;
+}
+
+
+void People::printInfo(){}
+
+void People::printInfoDetails(){
+    printInfo();
+    cout << "His/Her connections details are:";
+    for (auto item : this->listOfFriendswithWeights) {
+        cout << " "<<item.first->getName() << "[" << item.second << "]";
+    }
+    cout << "."<<endl;
+}
+
+// this uses dijkstra's algorithm:
+
+/*
+pair<map<People*, int>, map<People*, People*> >People::shortestPathWithWeights(){
+    priority_queue<int, vector<int>, greater<int>> myQueue;
+    map<People*, People*> pred;
+    map<People*, int>distance;
+    for (People* x : People::allNodes) {
+        distance[x] = MAXNUMBER;
+        pred[x] = NULL;
+        myQueue.push(MAXNUMBER);
+    }
+    
+    
+    distance[this] = 0;
+    myQueue.push(0);
+    
+    while (!myQueue.empty()) {
+        
+        int d = myQueue.top();
+        myQueue.pop();
+        People *u = new People;
+        map<People*, int>::iterator it;
+        for (it = distance.begin(); it!=distance.end(); it++) {
+            if (it->second ==d){
+                u = it->first;
+            }
+        }
+        
+        
+        
+        for (auto myPair : u->getFriendsWithWeights()){
+            People * v = myPair.first;
+            int duv = myPair.second;
+            if (distance[u] + duv < distance[v]){
+                distance[v] = distance[u] + duv;
+                pred[v] = u;
+                myQueue.push(distance[v]);
+            }
+        }
+    }
+    
+    return make_pair(distance, pred);
+    
+}
+
+
+// get introduced using dijstra's algoritm;
+void People::getIntroducedWithWeights(People *other){
+    pair<map<People*, int>, map<People*, People*> > myPair = this->shortestPathWithWeights();
+    map<People*, People*>pred = myPair.second;
+    People*x = pred[other];
+    cout << other->name << " <- ";
+    while (x!=this) {
+        cout << x->name << " <- ";
+        x = pred[x];
+    }
+    cout << this->name << endl;
+    
+}
+*/
+

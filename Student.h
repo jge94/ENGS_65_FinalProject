@@ -16,15 +16,28 @@
 class Student : public People {
     
 private:
-    
-    
+    int classYear;
+    static int studentNum;
+    static vector<Student *> allStudents;
 public:
     
+    Student();
     
-    //void takeCourse(Professor prof, string s);
+    Student(string s, int year, string sch, string ma, string pl, string em);
     
+    Student(const People &other);
+
+    ~Student();
     
+    int getClassYear();
     
+    void setClassYear(int year);
+    
+    void takeACourse(People * prof);
+    
+    static int getStudentNum();
+    
+    void printInfo();
     
 };
 

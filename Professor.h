@@ -12,16 +12,34 @@
 #include <stdio.h>
 #include "People.h"
 #include "Student.h"
+#include <string>
+#include <vector>
 
 class Professor : public People{
     
 private:
     
-    
+    bool isTenured;
+    static int professorNum;
+    static vector<Professor *> allProfessors;
 public:
     
-    //void teachCourse (vector<Student *> listOfStudents, string s);
     
+    Professor();
+    
+    Professor(string s, bool tenured, string sch, string ma, string pl, string em);
+    
+    Professor(const People &other);
+    
+    ~Professor();
+    
+    bool getTenured();
+    
+    void teachCourse (vector<People *> listofStudents);
+    
+    static int getProfessorNum();
+    
+    void printInfo();
 };
 
 #endif /* defined(__Engs65_FinalProject__Professor__) */
