@@ -121,16 +121,24 @@ void People::setName(string s){
 };
 	
 
-
 string People::getSchool()
 {
 	return school;
 }
 
+void People::setSchool(string newSchool)
+{
+	school = newSchool;
+}
 
 string People::getMajor()
 {
 	return major;
+}
+
+void People::setMajor(string newMajor)
+{
+	major = newMajor;
 }
 
 
@@ -139,18 +147,30 @@ string People::getPlace()
     return place;
 }
 
+void People::setPlace(string newPlace)
+{
+	place = newPlace;
+}
 
 string People::getEmail()
 {
     return email;
 }
 
+void People::setEmail(string newEmail)
+{
+	email = newEmail;
+}
 
 vector<string> People::getClasses()
 {
 	return classTaken;
 }
 
+void People::setClasses(vector<string> newClasses)
+{
+	classTaken = newClasses;
+}
 
 vector<People *> People::getFriends()
 {
@@ -351,7 +371,7 @@ int People::getCommonFriendsNum(People * other){
 }
 
 
-vector<pair<People*, int>> People::getFriendsWithWeights(){
+vector<pair<People*, int> > People::getFriendsWithWeights(){
     return listOfFriendswithWeights;
 }
 
@@ -365,6 +385,32 @@ void People::printInfoDetails(){
         cout << " "<<item.first->getName() << "[" << item.second << "]";
     }
     cout << "."<<endl;
+}
+
+
+void People::operator=(/*inout*/People* p)			// overwrite the equal method
+{
+	*this = *p;
+    if (!contains(allNodes, this)) allNodes.push_back(this);
+	// MAXCLASS = p->MAXCLASS;
+ //    MAXFRIENDS = p->10000;
+ //    MAXNUMBER = p->MAXNUMBER;
+ //    numbers = p->numbers;
+ //    static vector<People *> allNodes;
+ //    for(People* eachPerson : allNodes)
+ //    {
+ //    	this.allNodes
+ //    }
+ //    string name;
+ //    string school;
+ //    string major;
+ //    string place;					// where do they live now
+ //    string email;
+ //    vector<string> classTaken;				// array of classes
+ //    vector<People *> listOfFriends;
+ //    vector<pair<People*, int> > listOfFriendswithWeights;
+ //    vector<string> organizations;
+ //    People * backPointer;
 }
 
 // this uses dijkstra's algorithm:

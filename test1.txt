@@ -1,0 +1,7 @@
+Student|Yuxiang Liu|16|Dartmouth College|Physics|Hanover|Yuxiang.Liu.GR@dartmouth.edu
+Student|Harry Qi|17|Dartmouth College|Mathematics|Hanover|Harry.Qi.17@dartmouth.edu
+Student|Jinnan Ge|16|Dartmouth College|Engineering|Hanover|Jinnan.Ge.UG@dartmouth.edu
+Student|Ethan Su|15|Dartmouth College|Engineering|Hanover|Chengwei.Su.TH@dartmouth.edu
+Student|Tommy Khoo|18|Dartmouth College|Mathematics|Hanover|Tommy.Khoo.GR@dartmouth.edu
+Student|Liyuan Mei|16|Dartmouth College|Physics|Hanover|Liyuan.mei.GR@dartmouth.edu
+Professor|Santos|Eugene Santos|true|Dartmouth College|Engineering|Hanover|Eugene.Santos@dartmouth.edu

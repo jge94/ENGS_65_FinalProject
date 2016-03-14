@@ -3,15 +3,96 @@
 //  Engs65_FinalProject
 //
 //  Created by Yuxiang Liu on 3/1/16.
-//  Copyright (c) 2016 Yuxiang Liu. All rights reserved.
 //
 
 #include "People.h"
 #include "Professor.h"
 #include "Student.h"
+#include <iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+long ARRAY_SIZE = 1000;
+int TEMP_ARRAY_SIZE = 10;
 
 int main(int argc, const char * argv[]) {
-      
+    
+	string oneLine;
+	string eachWord;
+	string inputFileName;
+
+	cout << "			+++ Dartmouth Connect +++\n";
+	cout << "Enter input file name: ";
+	cin >> inputFileName;
+
+	// ifstream fin("test1.txt");
+	ifstream fin(inputFileName);
+
+	while(!fin.is_open())
+	{
+		cout << "File opening error. File \""<< inputFileName << "\" doesn't exist." << endl;
+		cout << "Enter a valid input file name: ";
+		cin >> inputFileName;
+		fin.open(inputFileName);
+	}
+
+	cout << "test1 \n";
+
+	People* peopleArray = new People[ARRAY_SIZE];
+	int numPeople = 0;
+	string* tempArray = new string[TEMP_ARRAY_SIZE];
+	string restOfStr = "";
+
+	cout << "test2 \n";
+
+
+	cout << "\nTesting on file input\n";
+
+	while(getline(fin, oneLine))	// while not the end of the file
+	{
+		// testß
+		int i = 0;				// index for people in the peopleArray array
+		cout << "New line: " << oneLine << endl;	// read in line by line
+
+		while(oneLine.find("|") != string::npos)		// not the | exist
+		{
+			string usefulStr = oneLine.substr(0, oneLine.find("|"));
+			// cout << "usefulStr: " << usefulStr << endl;
+
+			tempArray[i] = usefulStr;
+
+			restOfStr = oneLine.substr(oneLine.find("|") + 1);
+			// cout << "restOfStr: " << restOfStr << endl << endl;
+			oneLine = restOfStr;
+			i++;
+			// need to put the restOfStr to tempArray
+		}
+
+		tempArray[i] = restOfStr;
+		numPeople++;
+		// People* peopleArray[0] = new Student();
+		People* newStudent = new Student();
+		People* newProf = new Professor();
+
+		if(tempArray[0] == "Student")
+			peopleArray[numPeople] = newStudent;
+		else if(tempArray[0] == "Professor")
+			peopleArray[numPeople] = newProf;
+ 
+		peopleArray[numPeople].setName(tempArray[1]);
+
+		int classYr = stoi(tempArray[2]);
+		// peopleArray[numPeople].setClassYear(classYr);
+		peopleArray[numPeople].setSchool(tempArray[3]);
+		peopleArray[numPeople].setMajor(tempArray[4]);
+		peopleArray[numPeople].setPlace(tempArray[5]);
+		peopleArray[numPeople].setEmail(tempArray[6]);
+
+	}
+
+	fin.close();
     
     Student Larry("Yuxiang Liu", 16, "Dartmouth College", "Physics", "Hanover", "Yuxiang.Liu.GR@dartmouth.edu");
     

@@ -28,7 +28,7 @@ protected:
     string email;
     vector<string> classTaken;				// array of classes
     vector<People *> listOfFriends;
-    vector<pair<People*, int>> listOfFriendswithWeights;
+    vector<pair<People*, int> > listOfFriendswithWeights;
     vector<string> organizations;
     People * backPointer;
     
@@ -40,6 +40,13 @@ public:
     ~People();
     string getName();
     void setName(string s);
+    // void setClassYear(int y);
+    void setSchool(string n);
+    void setMajor(string m);
+    void setPlace(string p);
+    void setEmail(string e);
+    void setClasses(vector<string> c);
+
     string getSchool();
     string getMajor();
     string getPlace();
@@ -60,9 +67,11 @@ public:
     static void updateRecommendation();
     static bool isComplete();
     static void updateWeights();
-    vector<pair<People*, int>> getFriendsWithWeights();
+    vector<pair<People*, int> > getFriendsWithWeights();
     virtual void printInfo();
     virtual void printInfoDetails();
+
+    virtual void operator=(/*inout*/People* p2);				// overwrite the equal method
 };
 
 #endif
