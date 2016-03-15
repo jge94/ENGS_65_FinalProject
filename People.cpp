@@ -387,6 +387,15 @@ void People::printInfoDetails(){
     cout << "."<<endl;
 }
 
+int People::getClassYear()
+{
+	;
+}
+
+void People::setClassYear(int year)
+{
+	;
+}
 
 void People::operator=(/*inout*/People* p)			// overwrite the equal method
 {

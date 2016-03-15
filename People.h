@@ -40,12 +40,13 @@ public:
     ~People();
     string getName();
     void setName(string s);
-    // void setClassYear(int y);
+    int getClassYear();
     void setSchool(string n);
     void setMajor(string m);
     void setPlace(string p);
     void setEmail(string e);
     void setClasses(vector<string> c);
+    virtual void setClassYear(int year);
 
     string getSchool();
     string getMajor();
