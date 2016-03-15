@@ -24,8 +24,12 @@ int main(int argc, const char * argv[]) {
 	string inputFileName;
 
 	cout << "			+++ Dartmouth Connect +++\n";
+	cout << "Enter input file name: ";
+	cin >> inputFileName;
 
-	inputFileName = "/Users/Yuxiang/documents/C++/Engs65/Engs65_FinalProject/ENGS_65_FinalProject/test1.txt";
+	// please enter test1.txt for testing purpose, otherwise, you can write our own test files and include it here
+
+	// inputFileName = "/Users/Yuxiang/documents/C++/Engs65/Engs65_FinalProject/ENGS_65_FinalProject/test1.txt";
     // IMPORTANT: you will have to enter the whole path here.
 
 	ifstream fin(inputFileName);
@@ -109,14 +113,14 @@ int main(int argc, const char * argv[]) {
     Student Liyuan = *peopleArray.at(5);
     
     
-	cout << "\t **test on people array**\n";
-    for(Student * stu: peopleArray)
-	{
-		// if(peopleArray[i] != NULL)
-			cout << "\nname: " << stu->getName() << endl;
-			cout << "classYr: " << stu->getClassYear() << endl;
-			cout << "email: " << stu->getEmail() << endl;
-	}
+	// cout << "\t **test on people array**\n";
+ //    for(Student * stu: peopleArray)
+	// {
+	// 	// if(peopleArray[i] != NULL)
+	// 		cout << "\nname: " << stu->getName() << endl;
+	// 		cout << "classYr: " << stu->getClassYear() << endl;
+	// 		cout << "email: " << stu->getEmail() << endl;
+	// }
     
 
     Professor Santos("Eugene Santos", true, "Dartmouth College", "Engineering", "Hanover", "Eugene.Santos@dartmouth.edu");
