@@ -19,27 +19,27 @@ class Professor : public People{
     
 private:
     
-    bool isTenured;
-    static int professorNum;
-    static vector<Professor *> allProfessors;
+    bool isTenured;   // instance variable just for professor;
+    static int professorNum; // total number of professors
+    static vector<Professor *> allProfessors; // the set of all the professors
 public:
     
     
-    Professor();
+    Professor(); // copy constructor
     
-    Professor(string s, bool tenured, string sch, string ma, string pl, string em);
+    Professor(string s, bool tenured, string sch, string ma, string pl, string em); // constructor with info;
     
-    Professor(const People &other);
+    Professor(const People &other); // copy constructor
     
-    ~Professor();
+    ~Professor(); // destructor
     
-    bool getTenured();
+    bool getTenured();  // see if a professor is tenured;
     
-    void teachCourse (vector<People *> listofStudents);
+    void teachCourse (vector<People *> listofStudents);  // professor can teach a course to a list of students
     
-    static int getProfessorNum();
+    static int getProfessorNum();   // get the total number of professors
     
-    void printInfo();
+    void printInfo();  // print the basic info about the professor;
 };
 
 #endif /* defined(__Engs65_FinalProject__Professor__) */

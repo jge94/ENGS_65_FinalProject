@@ -24,112 +24,101 @@ int main(int argc, const char * argv[]) {
 	string inputFileName;
 
 	cout << "			+++ Dartmouth Connect +++\n";
-	// cout << "Enter input file name: ";
-	// cin >> inputFileName;
 
-	inputFileName = "test1.txt";
+	inputFileName = "/Users/Yuxiang/documents/C++/Engs65/Engs65_FinalProject/ENGS_65_FinalProject/test1.txt";
+    // IMPORTANT: you will have to enter the whole path here.
 
-	// ifstream fin("test1.txt");
 	ifstream fin(inputFileName);
 
 	while(!fin.is_open())
 	{
-		cout << "File opening error. File \""<< inputFileName << "\" doesn't exist." << endl;
+		cout << "File opening error. File \""<< inputFileName << "\" doesn't exist. " << endl;
 		cout << "Enter a valid input file name: ";
 		cin >> inputFileName;
 		fin.open(inputFileName);
 	}
 
-	cout << "test1 \n";
-
-	People* peopleArray = new People[ARRAY_SIZE];
-	int numPeople = 0;
-	string* tempArray = new string[TEMP_ARRAY_SIZE];
+    vector<Student*> peopleArray;
+    peopleArray.reserve(ARRAY_SIZE);
+    vector<string>tempArray;
 	string restOfStr = "";
 
-	cout << "test2 \n";
+    tempArray.reserve(TEMP_ARRAY_SIZE);
+
 
 
 	cout << "\nTesting on file input\n";
 
 	while(getline(fin, oneLine))	// while not the end of the file
 	{
-		int i = 0;				// index for people in the peopleArray array
+					// index for people in the peopleArray array
 
 		// --------- testing -----------
 		// cout << "New line: " << oneLine << endl;	// read in line by line
+        tempArray.clear();
 
 		while(oneLine.find("|") != string::npos)		// not the | exist
 		{
 			string usefulStr = oneLine.substr(0, oneLine.find("|"));
 			// cout << "usefulStr: " << usefulStr << endl;
 
-			tempArray[i] = usefulStr;
+			tempArray.push_back(usefulStr);
 
 			restOfStr = oneLine.substr(oneLine.find("|") + 1);
 			// cout << "restOfStr: " << restOfStr << endl << endl;
 			oneLine = restOfStr;
-			i++;
+        
 		}
 
-		tempArray[i] = restOfStr;
+		tempArray.push_back(restOfStr);
 		// People* peopleArray[0] = new Student();
 		// People* newStudent = new Student();
 		// People* newProf = new Professor();
 
-		if(tempArray[0] == "Student")
-		{
-			cout << "in if " << endl;
-			cout << numPeople << " people is STUDENT" << endl;
-			peopleArray[numPeople] = new Student();
-		}
-		// else if(tempArray[0] == "Professor")
-		// 	peopleArray[numPeople] = new Professor();
+		
+		Student *stu = new Student();
+		
+	
  
-		peopleArray[numPeople].setName(tempArray[1]);
+		stu->setName(tempArray.at(1));
 
-		int classYr = stoi(tempArray[2]);
-		cout << "tempArray[2]: " << tempArray[2] << endl;
-		cout << "classYr: " << classYr << endl;
-		peopleArray[numPeople].setClassYear(classYr);
-		peopleArray[numPeople].setSchool(tempArray[3]);
-		peopleArray[numPeople].setMajor(tempArray[4]);
-		peopleArray[numPeople].setPlace(tempArray[5]);
-		peopleArray[numPeople].setEmail(tempArray[6]);
+		int classYr = stoi(tempArray.at(2));
+		stu->setClassYear(classYr);
+		stu->setSchool(tempArray.at(3));
+		stu->setMajor(tempArray.at(4));
+		stu->setPlace(tempArray.at(5));
+		stu->setEmail(tempArray.at(6));
 
-		numPeople++;
+        peopleArray.push_back(stu);
 
 	}//end while
 
 	fin.close();
 
+    
+    Student Larry = *peopleArray.at(0);
+    
+    Student Harry = *peopleArray.at(1);
+    
+    Student Jinnan =*peopleArray.at(2);
+    
+    Student Ethan = *peopleArray.at(3);
+    
+    Student Tommy = *peopleArray.at(4);
+    
+    Student Liyuan = *peopleArray.at(5);
+    
+    
 	cout << "\t **test on people array**\n";
-	for(int i = 0; i<7; i++)
+    for(Student * stu: peopleArray)
 	{
 		// if(peopleArray[i] != NULL)
-			cout << "peopleArray[" << i << "] name: " << peopleArray[i].getName() << endl;
-			cout << "classYr: " << peopleArray[i].getClassYear() << endl;
-			cout << "email: " << peopleArray[i].getEmail() << endl;
+			cout << "\nname: " << stu->getName() << endl;
+			cout << "classYr: " << stu->getClassYear() << endl;
+			cout << "email: " << stu->getEmail() << endl;
 	}
     
-    // Student Larry("Yuxiang Liu", 16, "Dartmouth College", "Physics", "Hanover", "Yuxiang.Liu.GR@dartmouth.edu");
-    Student Larry = peopleArray[0];
 
-    // Student Harry("Harry Qi", 17, "Dartmouth College", "Mathematics", "Hanover", "Harry.Qi.17@dartmouth.edu");
-    Student Harry = peopleArray[1];
-
-    // Student Jinnan("Jinnan Ge", 16, "Dartmouth College", "Engineering", "Hanover", "Jinnan.Ge.UG@dartmouth.edu");
-    Student Jinnan = peopleArray[2];
-
-    // Student Ethan("Ethan Su", 15, "Dartmouth College", "Engineering", "Hanover", "Chengwei.Su.TH@dartmouth.edu");
-    Student Ethan = peopleArray[3];
-
-    // Student Tommy("Tommy Khoo", 18, "Dartmouth College", "Mathematics", "Hanover", "Tommy.Khoo.GR@dartmouth.edu");
-    Student Tommy = peopleArray[4];
-
-    // Student Liyuan("Liyuan Mei", 16, "Dartmouth College", "Physics", "Hanover", "Liyuan.mei.GR@dartmouth.edu");
-    Student Liyuan = peopleArray[5];
-    
     Professor Santos("Eugene Santos", true, "Dartmouth College", "Engineering", "Hanover", "Eugene.Santos@dartmouth.edu");
     
     
@@ -149,7 +138,9 @@ int main(int argc, const char * argv[]) {
 
     People::updateWeights();  // updates the weights, so that the number of common friends are updated;
     
+    cout << endl; 
     Larry.printInfoDetails(); // print each node details, between [] are the number of common friends;
+    cout << endl;
     Santos.printInfoDetails();
     
     cout << "\n1. The first recommedation for Larry is " << Larry.recommend()->getName() << endl;

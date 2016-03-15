@@ -34,45 +34,40 @@ protected:
     
 public:
     
-    People();
-    People(string s, string sch, string ma, string pl, string em);
-    People(const People &person);
-    ~People();
-    string getName();
-    void setName(string s);
-    int getClassYear();
-    void setSchool(string n);
-    void setMajor(string m);
-    void setPlace(string p);
-    void setEmail(string e);
-    void setClasses(vector<string> c);
-    virtual void setClassYear(int year);
-
-    string getSchool();
-    string getMajor();
-    string getPlace();
-    string getEmail();
-    vector<string> getClasses();
-    vector<People*> getFriends();
-    vector<string> getOrganization();
-    void addConnection (People * person1);
-    void removeConnection (People *person1);
-    People * recommend ();
-    map<People*, int> shortestPath();
-    int shortestPath(People * other);
-    void getIntroduced(People * other);
-    int getCommonFriendsNum(People * other);
-    static int getDiameter();
-    static int getNumbers();
-    static vector<People*> getAllNodes();
-    static void updateRecommendation();
-    static bool isComplete();
-    static void updateWeights();
-    vector<pair<People*, int> > getFriendsWithWeights();
-    virtual void printInfo();
-    virtual void printInfoDetails();
-
-    virtual void operator=(/*inout*/People* p2);				// overwrite the equal method
+    People();  // default constructor
+    People(string s, string sch, string ma, string pl, string em); // constructor with info;
+    People(const People &person); // copy constructor
+    ~People(); // destructor
+    string getName(); // getter function for name
+    void setName(string s); // setter function
+    void setSchool(string n); // setter function
+    void setMajor(string m); // setter function
+    void setPlace(string p); // setter function
+    void setEmail(string e); // setter function
+    void setClasses(vector<string> c); // setter function
+    string getSchool(); // getter function
+    string getMajor(); // getter function
+    string getPlace(); // getter function
+    string getEmail(); // getter function
+    vector<string> getClasses();  // what classes have the student/profesor taken/taught?
+    vector<People*> getFriends(); // get the connections
+    vector<string> getOrganization(); // get the name of the organizaitons
+    void addConnection (People * person1); // add connection between 2 people;
+    void removeConnection (People *person1); // remove connection between 2 people;
+    People * recommend ();  // recommend a friend to the object;
+    map<People*, int> shortestPath(); // get the shortest path from *this* object to any other objects;
+    int shortestPath(People * other); // get the shortest path from *this* object to *other* object
+    void getIntroduced(People * other); // give a path to introduce from *this* to *other*
+    int getCommonFriendsNum(People * other); // get the number of common friends from *this* and *other*
+    static int getDiameter(); // get the diameter of the graph
+    static int getNumbers();  // get the total number in this graph, students + professors
+    static vector<People*> getAllNodes(); // get the set of all the people, including the students and the professors;
+    static void updateRecommendation(); // add the recommended friends for each node automatically;
+    static bool isComplete(); // to see if the graph is complete or not.
+    static void updateWeights(); // add the weights to each edge, weights is calcuated by quoting the number of common frineds;
+    vector<pair<People*, int> > getFriendsWithWeights(); // get a list of the adjacent nodes with the weights;
+    virtual void printInfo();  // print the info for the specific node;
+    virtual void printInfoDetails(); // print the detailed info for the specific node;
 };
 
 #endif

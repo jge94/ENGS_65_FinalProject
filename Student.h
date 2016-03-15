@@ -16,28 +16,28 @@
 class Student : public People {
     
 private:
-    int classYear;
-    static int studentNum;
-    static vector<Student *> allStudents;
+    int classYear;    // instance variable only for student
+    static int studentNum;  // total number of students
+    static vector<Student *> allStudents; // the set of all the students;
 public:
     
-    Student();
+    Student();  // default constructor
     
-    Student(string s, int year, string sch, string ma, string pl, string em);
+    Student(string s, int year, string sch, string ma, string pl, string em); // constructor with info
     
-    Student(const People &other);
+    Student(const People &other); // copy constructor;
 
-    ~Student();
+    ~Student();  // destructor
     
-    int getClassYear();
+    int getClassYear();  // getter function for classYear;
     
-    void setClassYear(int year);
+    void setClassYear(int year);  // setter function for classYear;
     
-    void takeACourse(People * prof);
+    void takeACourse(People * prof); // student can take a course from a professor
     
-    static int getStudentNum();
+    static int getStudentNum();     // get the total number of students;
     
-    void printInfo();
+    void printInfo();   // print the basic info about the student;
     
 };
 

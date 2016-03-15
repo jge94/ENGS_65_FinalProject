@@ -25,6 +25,7 @@ vector<Student *> Student::allStudents;
 
 Student::Student():People(){
     studentNum++;
+    classYear = 0; 
     if (!contains(allStudents, this)) allStudents.push_back(this);
 }
 
