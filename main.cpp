@@ -48,7 +48,7 @@ int main(int argc, const char * argv[]) {
 
 
 	cout << "\nTesting on file input\n";
-
+   
 	while(getline(fin, oneLine))	// while not the end of the file
 	{
 					// index for people in the peopleArray array
@@ -90,9 +90,9 @@ int main(int argc, const char * argv[]) {
 		stu->setEmail(tempArray.at(6));
 
         peopleArray.push_back(stu);
-
+       
 	}//end while
-
+    
 	fin.close();
 
     
@@ -173,7 +173,10 @@ int main(int argc, const char * argv[]) {
     cout << "\n10. After second update, the diameter of the graph is now "<< People::getDiameter() << endl;
     
     People::updateWeights();
-    Larry.printInfoDetails();
+
+    cout << Ethan.getFriends().size();
+    cout<<Ethan.getFriendsWithWeights().size()<<endl;
+    Ethan.printInfoDetails();
     Santos.printInfoDetails();
     
     return 0;

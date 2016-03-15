@@ -70,8 +70,8 @@ People::People(){
     organizations.reserve(MAXCLASS);
     listOfFriendswithWeights.reserve(MAXFRIENDS);
     backPointer = NULL;
-    numbers ++;
-    if (!contains (allNodes, this)) allNodes.push_back(this);
+    //numbers ++;
+    //if (!contains (allNodes, this)) allNodes.push_back(this);
 } // default constructor;
 
 People::People(string s, string sch, string ma, string pl, string em ){
@@ -348,13 +348,19 @@ bool People::isComplete() {
 
 void People::updateWeights() {
     vector<People*> nodes = People::getAllNodes();
+    
     for (People * x : nodes) {
+        x->listOfFriendswithWeights.clear();
         for(People *y:x->getFriends()) {
+            
+                
             
             int num = x->getCommonFriendsNum(y);
             pair<People*, int> myPair = make_pair(y, num);
             x->listOfFriendswithWeights.push_back(myPair);
+            
         }
+        
     }
 }
 
@@ -380,7 +386,7 @@ void People::printInfo(){}
 void People::printInfoDetails(){
     printInfo();
     cout << "His/Her connections details are:";
-    for (auto item : this->listOfFriendswithWeights) {
+    for (pair<People*, int>item : listOfFriendswithWeights) {
         cout << " "<<item.first->getName() << "[" << item.second << "]";
     }
     cout << "."<<endl;
